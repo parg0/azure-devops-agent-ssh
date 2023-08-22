@@ -4,6 +4,7 @@ Sometimes it's very useful to connect to an agent/runner and check logs or roam 
 Github permits connecting to their runners via SSH with the usage of specialized actions, but Azure DevOps does not have this functionality. 
 Thanks to Twingate, we now have a workaround.
 
+Full tutorial - [here](https://pargo.info/devops/azure-devops/connect-azure-devops-agent-ssh/)
 
 # Installation
 
