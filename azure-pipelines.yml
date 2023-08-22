@@ -1,0 +1,35 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+- job: Twingate
+  steps:
+
+  - checkout: self
+
+  - task: Bash@3
+    displayName: 'Install Twingate agent'
+    inputs:
+      targetType: 'inline'
+      script: | 
+        <CONNECTOR_SERVICE_COMMAND>
+
+  - task: Bash@3
+    displayName: 'Add public key to Agent VM'
+    inputs:
+      targetType: 'inline'
+      script: |
+        mkdir -p ~/.ssh
+        echo "<PUBLIC_KEY>" >> ~/.ssh/authorized_keys
+
+  - task: Bash@3
+    displayName: 'Show agent IP address'
+    inputs:
+      targetType: 'inline'
+      script: |
+        export ETH0_IP=$(ip addr show eth0 | grep "inet\\b" | awk '{print $2}' | cut -d/ -f1) 
+        echo "##[section]CONNECT WITH: ssh vsts@$ETH0_IP"
+        sleep <TIMEOUT_INTERVAL>
